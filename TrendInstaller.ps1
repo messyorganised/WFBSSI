@@ -1,7 +1,19 @@
-﻿$ScriptPath = Split-Path -parent $MyInvocation.MyCommand.Definition
+$ScriptPath = Split-Path -parent $MyInvocation.MyCommand.Definition
+$TrendMSI = Join-Path -Path ([Environment]::GetFolderPath("Desktop")) -ChildPath "WFBS-SVC_Agent_Installer.msi"
+$TrendIdentifier = 'TENANT ID'
 
-write-host "Enter Company Identifier"
-$identifierpath = Read-Host
+function AVInstall {
+    write-host "
+    Downloading Trend Antivirus
+    "
+    start-process $Scriptpath\Software\WFBS-SVC_Downloader.exe /SILENT -wait
 
-start-process msiexec '/i \$Scriptpath\Software\WFBS-SVC_Agent_Installer IDENTIFIER=$identifierpath ABANDON=0 SILENTMODE=1  /L*v C:\Windows\Temp\WFBS_Debug\wofie_msi.log'
-
+    Write-Host "
+    Installing Trend Antivirus
+    "
+    Start-Process msiexec.exe -ArgumentList "/i $TrendMSI IDENTIFIER=$Trendidentifier SILENTMODE=1"
+    
+    Write-Host "
+    SUCCESS!
+    "
+}
