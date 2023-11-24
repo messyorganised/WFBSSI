@@ -3,11 +3,11 @@ $TrendMSI = Join-Path -Path ([Environment]::GetFolderPath("Desktop")) -ChildPath
 $TrendIdentifier = 'TENANT ID'
 
 function AVInstall {
-    write-host "Downloading Trend Antivirus" -Seperator "`n"
+    write-host "Downloading Trend Antivirus"  "`n"
     start-process $Scriptpath\Software\WFBS-SVC_Downloader.exe /SILENT -wait
 
-    Write-Host "Installing Trend Antivirus" -Seperator "`n"
+    Write-Host "Installing Trend Antivirus"  "`n"
     Start-Process msiexec.exe -ArgumentList "/i $TrendMSI IDENTIFIER=$Trendidentifier SILENTMODE=1"
     
-    Write-Host "SUCCESS!" -Seperator "`n"
+    Write-Host "SUCCESS!"  "`n"
 }
